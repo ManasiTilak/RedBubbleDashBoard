@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>RedBubble Uploader</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background : #161219;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="scrapeButton">
+    <property name="geometry">
+     <rect>
+      <x>64</x>
+      <y>250</y>
+      <width>220</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 35px ;
+	color: 'white' ;
+	padding : 20px 0 ;
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Scrape</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cleanButton">
+    <property name="geometry">
+     <rect>
+      <x>632</x>
+      <y>250</y>
+      <width>220</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 35px ;
+	color: 'white' ;
+	padding : 20px 0 ;
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Clean</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="downloadButton">
+    <property name="geometry">
+     <rect>
+      <x>348</x>
+      <y>250</y>
+      <width>220</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 35px ;
+	color: 'white' ;
+	padding : 20px 0 ;
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Download</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="uploadButton">
+    <property name="geometry">
+     <rect>
+      <x>916</x>
+      <y>250</y>
+      <width>220</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 35px ;
+	color: 'white' ;
+	padding : 20px 0 ;
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Upload</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="redButton">
+    <property name="geometry">
+     <rect>
+      <x>64</x>
+      <y>570</y>
+      <width>400</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 25px ;
+	color: 'white' ;
+	
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Change Redbubble Details</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rawButton">
+    <property name="geometry">
+     <rect>
+      <x>464</x>
+      <y>570</y>
+      <width>400</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border :4px solid '#BA1F33' ;
+	border-radius: 15px ;
+	font-size : 25px ;
+	color: 'white' ;
+	
+	margin : 10px 20px ;
+}
+
+QPushButton:hover{
+	background: '#BA1F33' ; 
+	color: '#161219';
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Change Rawpixel Details</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="logo">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>-150</y>
+      <width>600</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../logo/logo_rb.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>logo</zorder>
+   <zorder>scrapeButton</zorder>
+   <zorder>cleanButton</zorder>
+   <zorder>downloadButton</zorder>
+   <zorder>uploadButton</zorder>
+   <zorder>redButton</zorder>
+   <zorder>rawButton</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
