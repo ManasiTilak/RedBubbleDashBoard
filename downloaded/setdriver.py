@@ -1,4 +1,4 @@
-def setdrived(range_upper):
+def start_driver(range_upper):
     from selenium import webdriver
     from selenium.webdriver.common.by import By
     from selenium.webdriver.common.keys import Keys
@@ -9,7 +9,7 @@ def setdrived(range_upper):
     driver_path = 'C:\Program Files (x86)\chromedriver.exe'
     driver = webdriver.Chrome(executable_path=driver_path)
     #set sheet
-    WBR = load_workbook(r'.\res\trylinks.xlsx')
+    WBR = load_workbook(r'.\res\rbdash_links.xlsx')
     OBJR = WBR['Sheet1']
     driver.get("https://www.rawpixel.com/user/login")
     

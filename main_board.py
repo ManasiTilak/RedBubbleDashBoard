@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFileDialog, QDialog, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFileDialog, QDialog, QLineEdit, QComboBox
 from PyQt5 import uic
 import sys
 import os
@@ -11,15 +11,96 @@ from downloaded import setdriver
 import string_manipulation
 #from cleaned
 from cleaned import image_edit
+#from database_settings
+from database_setting import add_user
+
+class Upload_UI(QMainWindow):
+    def __init__(self):
+        
+        super(Upload_UI, self).__init__()
+        #loading the GUI Window
+        uic.loadUi("./gui_win/upload.ui", self)
+        #finding elements - display
+        self.choose_user = self.findChild(QComboBox, "chooseUser")
+        self.display_user = self.findChild(QLabel, "displayUser")
+        #finding elements - buttons
+        self.delete_user = self.findChild(QPushButton, "deleteUser")        
+        self.edit_user = self.findChild(QPushButton, "editUser")
+        self.main_upload = self.findChild(QPushButton, "mainUpload")
+        self.select_user = self.findChild(QPushButton, "selectUser")
+        #on click above buttons
+        self.delete_user .clicked.connect(self.delete_account)
+        self.edit_user .clicked.connect(self.edit_account)
+        self.main_upload .clicked.connect(self.upload_main)
+        self.select_user .clicked.connect(self.select_account)
+
+        #adding items to combobox
+        self.choose_user.addItem("Try")
+        self.choose_user.addItem("hpw")
+
+    def delete_account(self):
+        print("delete")
+
+    def edit_account(self):
+        print("edit")
+
+    def upload_main(self):
+        print("upload")
+
+    def select_account(self):
+        print("select")
+
+class NewUserRed_UI(QMainWindow):
+    def __init__(self):
+        
+        super(NewUserRed_UI, self).__init__()
+        # initializing variables for img folder and excel
+        self.new_imgfolder = ""
+        self.new_excel = ""
+        #loading the GUI Window
+        uic.loadUi("./gui_win/newuser_red.ui", self)
+        #finding elements
+        self.username_input = self.findChild(QLineEdit, "newUsername")
+        self.email_input = self.findChild(QLineEdit, "newEmail")
+        self.password_input = self.findChild(QLineEdit, "newPassword")
+        self.new_imagefolder = self.findChild(QPushButton, "newImagefolder")
+        self.new_excel = self.findChild(QPushButton, "newExcel")
+        self.newuser_done = self.findChild(QPushButton, "newuserDone")
+        #on click above buttons
+        self.new_imagefolder.clicked.connect(self.new_getfolder)
+        self.new_excel.clicked.connect(self.new_getexcel)
+        self.newuser_done.clicked.connect(self.newuser_logic)
+
+    def new_getfolder(self):
+        getfolder = QFileDialog.getOpenFileName(self, "Open File", "c:\\", "PNG Files (*.png);;JPG Files(*.jpg)")
+        self.new_imgfolder = string_manipulation.string_manipulate(str(getfolder[0]))
+    
+    def new_getexcel(self):
+        getexcel = QFileDialog.getOpenFileName(self, "Open File", "c:\\", "Excel Files (*.xlsx)")
+        self.new_excel = str(getexcel[0])
+    
+    def newuser_logic(self):
+        # getting label data
+        new_username = str(self.username_input.text())
+        new_email = str(self.email_input.text())
+        new_password = str(self.password_input.text())
+        new_folder = str(self.new_imgfolder)
+        new_excel = str(self.new_excel)
+
+        if len(new_username) > 0 and len(new_email) > 0 and len(new_password) > 0:
+            add_user.add_new(new_username, new_email, new_password, new_folder, new_excel)
+            self.hide()
+            # print((new_username, new_email, new_password, new_folder, new_excel))
+        else:
+            print("Username, Password and Emails are mandatory fields.")
+
+
 
 class Clean_UI(QMainWindow):
-    new_original_name = ""
-    new_destination_name = ""
     def __init__(self):
         
         super(Clean_UI, self).__init__()
         self.new_original_name = ""
-        self.new_destination_name = ""
         #loading the GUI Window
         uic.loadUi("./gui_win/clean.ui", self)
         #finding elements
@@ -40,10 +121,7 @@ class Clean_UI(QMainWindow):
         print("Clean Button was Clicked.")
         to_clean_folder = self.new_origin_name
         if len(to_clean_folder) != 0:
-            images = os.listdir(to_clean_folder)
-            for image_name_ext in images:
-                image_edit.edit_image(to_clean_folder, image_name_ext)
-            print("Image Folder is Now clean. You may proceed to uploading images")
+            image_edit.navigate_images(to_clean_folder)
 
 class Download_UI(QMainWindow):
     def __init__(self):
@@ -63,7 +141,7 @@ class Download_UI(QMainWindow):
             num_images = int(self.num_imagesdownload_input.text())
             if num_images > 0:
                 print(f"number of images to download are {num_images}")
-                setdriver.setdrived(num_images)
+                setdriver.start_driver(num_images)
             else:
                 print("Number of images must be greater than 0")
         except ValueError:
@@ -156,10 +234,13 @@ class Main_UI(QMainWindow):
         self.scrapewin.show()
 
     def upload(self):
-        print("upload")
+        self.scrapewin = Upload_UI()
+        self.scrapewin.show()
 
     def red(self):
-        print("red")
+        self.scrapewin = NewUserRed_UI()
+        self.scrapewin.show()
+        
 
     def raw(self):
         print("raw")

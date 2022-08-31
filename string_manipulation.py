@@ -6,5 +6,5 @@ def string_manipulate(str):
     appendString = reversedString[slashpos+1:]
     finalString = appendString [::-1]
     # #Setting main folder and image pattern
-    src_folder = finalString + '\\' + '\\'
+    src_folder = finalString + '\\'
     return(src_folder)
