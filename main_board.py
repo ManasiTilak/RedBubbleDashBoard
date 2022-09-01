@@ -12,7 +12,7 @@ import string_manipulation
 #from cleaned
 from cleaned import image_edit
 #from database_settings
-from database_setting import add_user
+from database_setting import add_user, get_username, fetchdata_username
 
 class Upload_UI(QMainWindow):
     def __init__(self):
@@ -35,8 +35,9 @@ class Upload_UI(QMainWindow):
         self.select_user .clicked.connect(self.select_account)
 
         #adding items to combobox
-        self.choose_user.addItem("Try")
-        self.choose_user.addItem("hpw")
+        items = get_username.get_usernames()
+        for item in items:
+            self.choose_user.addItem(item[0])
 
     def delete_account(self):
         print("delete")
@@ -47,8 +48,15 @@ class Upload_UI(QMainWindow):
     def upload_main(self):
         print("upload")
 
-    def select_account(self):
-        print("select")
+    def select_account(self):   
+        #get selected username
+        selected_username = self.choose_user.currentText()
+        user_datas = fetchdata_username.fetch_userdata(selected_username)
+        for user_data in user_datas:
+                user_string = '\n'.join(user_data)
+                print(user_string)
+                # print(user_data[i].join)
+        self.display_user.setText(user_string)
 
 class NewUserRed_UI(QMainWindow):
     def __init__(self):
