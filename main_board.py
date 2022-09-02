@@ -5,14 +5,16 @@ import os
 import time
 # from scraped import scrape
 from scraped import scrape, transfer
-#from downloaded import setdriver
-from downloaded import setdriver
+#from downloaded import raw_setdriver
+from downloaded import raw_setdriver
 #import string manipulation to clean the folder names
 import string_manipulation
 #from cleaned
 from cleaned import image_edit
 #from database_settings
-from database_setting import add_user, get_username, fetchdata_username
+from database_setting import add_user, get_username, fetchdata_username, delete_user
+# from upload
+from upload import red_setdriver
 
 class Upload_UI(QMainWindow):
     def __init__(self):
@@ -39,24 +41,45 @@ class Upload_UI(QMainWindow):
         for item in items:
             self.choose_user.addItem(item[0])
 
-    def delete_account(self):
-        print("delete")
-
     def edit_account(self):
         print("edit")
 
-    def upload_main(self):
-        print("upload")
-
     def select_account(self):   
         #get selected username
-        selected_username = self.choose_user.currentText()
-        user_datas = fetchdata_username.fetch_userdata(selected_username)
-        for user_data in user_datas:
-                user_string = '\n'.join(user_data)
-                print(user_string)
-                # print(user_data[i].join)
-        self.display_user.setText(user_string)
+        if self.choose_user.currentText():
+            self.selected_username = self.choose_user.currentText()
+            self.user_datas = fetchdata_username.fetch_userdata(self.selected_username)
+            for user_data in self.user_datas:
+                    user_string = '\n'.join(user_data)
+            self.display_user.setText(user_string)
+        else:
+            self.display_user.setText("Please select a user")
+    
+    def upload_main(self):
+        try:
+            for user_data in self.user_datas:
+                    username = user_data[0]
+                    email = user_data[1]
+                    password = user_data[2]
+                    folder = user_data[3]
+                    excel = user_data[4]
+            print(username, email, password, folder, excel)
+            red_setdriver.start_reddriver(username, email, password, folder, excel)
+            self.hide()
+        
+        except AttributeError:
+            self.display_user.setText("Please select a user")
+            print("Please select a user")
+        
+
+    def delete_account(self):
+       
+        try:
+            print(self.selected_username)
+            delete_user.delete_userdata(self.selected_username)
+        except AttributeError:
+            self.display_user.setText("Please select a user")
+            print("Please select a user")
 
 class NewUserRed_UI(QMainWindow):
     def __init__(self):
@@ -101,7 +124,6 @@ class NewUserRed_UI(QMainWindow):
             # print((new_username, new_email, new_password, new_folder, new_excel))
         else:
             print("Username, Password and Emails are mandatory fields.")
-
 
 
 class Clean_UI(QMainWindow):
@@ -149,7 +171,7 @@ class Download_UI(QMainWindow):
             num_images = int(self.num_imagesdownload_input.text())
             if num_images > 0:
                 print(f"number of images to download are {num_images}")
-                setdriver.start_driver(num_images)
+                raw_setdriver.start_driver(num_images)
             else:
                 print("Number of images must be greater than 0")
         except ValueError:
@@ -252,9 +274,6 @@ class Main_UI(QMainWindow):
 
     def raw(self):
         print("raw")
-
-    def scrape():
-        print("scrape")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
