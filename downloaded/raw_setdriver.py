@@ -1,9 +1,14 @@
 def start_driver(range_upper):
+    import os
     from selenium import webdriver
     from selenium.webdriver.common.by import By
     from selenium.webdriver.common.keys import Keys
     import time
     from openpyxl import load_workbook
+    from dotenv import load_dotenv, find_dotenv
+
+    #loading env file
+    load_dotenv(find_dotenv())
 
     #set driver
     driver_path = 'C:\Program Files (x86)\chromedriver.exe'
@@ -11,14 +16,18 @@ def start_driver(range_upper):
     #set sheet
     WBR = load_workbook(r'.\res\rbdash_links.xlsx')
     OBJR = WBR['Sheet1']
+    
+    EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+    PASSWORD = os.getenv('PASSWORD') 
+
     driver.get("https://www.rawpixel.com/user/login")
     
 
     #sending username
-    driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div[1]/form/div[1]/input").send_keys("manasitilak12@gmail.com")
+    driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div[1]/form/div[1]/input").send_keys(EMAIL_ADDRESS)
     #sending password
     password = driver.find_element(By.ID, "edit-pass")
-    password.send_keys("Sana2020")
+    password.send_keys(PASSWORD)
     password.send_keys(Keys.RETURN)
     #pressing enter
     #navigate to the public domain side
@@ -32,12 +41,13 @@ def start_driver(range_upper):
         print(link)
         driver.get(link)
         time.sleep(30)
-        downloadbtn = driver.find_element(By.CLASS_NAME, "sc-2954edd3-2")
+        downloadbtn = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/article/figure/figcaption/div/div[1]/div/button/span")
         downloadbtn.click()
         time.sleep(15)
         # deleting the specific link
         OBJR.delete_rows(1)
+        WBR.save(r'.\res\rbdash_links.xlsx')
     time.sleep(50)
     driver.quit()
-    WBR.save(r'.\res\try_links.xlsx')
+    
     print("Images downloaded. Please Check")
